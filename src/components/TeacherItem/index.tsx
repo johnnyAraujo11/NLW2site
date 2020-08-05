@@ -18,11 +18,11 @@ function TeacherItem() {
             </header>
             <p>Melhor professor para você aprender inglês by the way.
                        <br /> <br />
-                        Gosta de coxinha e ler.
+                        A 10 anos lecionando e trazendo alegria prara muita gente.
                    </p>
             <footer>
                 <p>
-                    Preço por hora:<strong>100 conto. </strong>
+                    Preço por hora:<strong>R$100.</strong>
                 </p>
                 <button type="button">
 
