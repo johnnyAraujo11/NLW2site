@@ -5,10 +5,13 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 import Input from '../../components/Input';
 import waringIcon from '../../assets/images/icons/warning.svg';
+import api from '../../services/api';
+import { useHistory } from 'react-router-dom';
 
 
 function TeacherForm() {
 
+    const  history = useHistory();
     const [scheduleItems, setScheduleItems] = useState([
         { week_day: 0, from: '', to: '' }
     ]);
@@ -29,19 +32,32 @@ function TeacherForm() {
     function handleCreatClass(event: FormEvent){
         //Não aconteco reload d página
         event.preventDefault();
-        console.log({
+        //conexão com o servidor
+        api.post('/classes', {
             name,
-            avatar, whatsapp, bio, subject, cost        })
+            avatar,
+            whatsapp,
+            bio,
+            subject,
+            cost: Number(cost),
+            schedule: scheduleItems
+                }).then(() =>{
+                    alert("Casdastro realizado com sucesso!");
+                    history.push('/');
+                }).catch(() =>{
+                    alert("Erro ao realizar o cadastro.")
+                })
+        console.log(scheduleItems)
      }
 
     function setScheduleItemValue(position: number, field: string, value: string){
-        const newArray = scheduleItems.map((scheduleItem, index) => {
+        const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
             if(index === position){
                 return { ...scheduleItem, [field]:value}
             }
             return scheduleItem;
         })
-        console.log(newArray)
+        setScheduleItems(updatedScheduleItems);
     } 
 
     return (
@@ -114,12 +130,12 @@ function TeacherForm() {
                                     { name: '5', label: 'Sexta-feira' },
                                     { name: '6', label: 'Sábado' },
                                     ]}
-                                 
+                                    value={scheduleItem.week_day}
                                     onChange={ event => setScheduleItemValue(index, 'week_day', event.target.value)}
                                 />
 
-                                <Input type="time" name="from" label="Das" />
-                                <Input type="time" name="to" label="Até" />
+                                <Input type="time" name="from" label="Das" value={scheduleItem.from}onChange={event => {setScheduleItemValue(index, 'from', event.target.value)}}/>
+                                <Input type="time" name="to" label="Até" value={scheduleItem.to} onChange={event => { setScheduleItemValue(index, 'to', event.target.value)}}/>
                             </div>
 
                         );
