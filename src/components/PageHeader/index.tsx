@@ -7,6 +7,8 @@ import './styles.css'
 /*essa propriedade é obrigatória, etão tem que receber uma string*/
 interface PageHeaderProps {
     title: string;
+    //a interrogação indica que a propriedade não é obrigatória
+    description?: string;
 }
 /*const por que estamos utilizando propriedade*/ 
 const PageHeader: React.FunctionComponent<PageHeaderProps> = (props) => {
@@ -21,9 +23,9 @@ const PageHeader: React.FunctionComponent<PageHeaderProps> = (props) => {
         </div>
 
         <div className="header-content">
-            <strong>
-                {props.title}
-            </strong>
+            <strong> {props.title} </strong>
+            {/*condicção ternário */}
+            { props.description != null ? <p>{props.description}</p>: null }
         {props.children}
         </div>
     </header>
