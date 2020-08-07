@@ -13,6 +13,7 @@ interface SelectProps extends InputHTMLAttributes<HTMLSelectElement>{
 }
 /*podemos utilizar a desestruturação (props) =>{...}*/
 const Select: React.FunctionComponent<SelectProps> = ({name,options, label, ...rest}) => {
+    
     return (
         <div className="select-block">
             <label htmlFor={name}>{label}</label>
@@ -21,6 +22,7 @@ const Select: React.FunctionComponent<SelectProps> = ({name,options, label, ...r
                 {options.map(option => {
                     return <option key={option.name}value={option.name}>{option.label}</option>
                 })}
+              
             </select>
             
         </div>
